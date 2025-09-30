@@ -1,0 +1,8 @@
+/* app/globals.css */
+
+/* Tailwind v4: 설정파일 없이 이 한 줄로 충분 */
+@import "tailwindcss";
+
+/* (임시 테스트) CSS가 로딩됐는지 눈에 보이게 확인용 — 나중에 지워도 됩니다 */
+body { outline: 2px dashed transparent; } 
+
