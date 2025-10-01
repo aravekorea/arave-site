@@ -35,7 +35,7 @@ export default function AraveLanding() {
       news: '아라베 소식 & 언급',
       newsDesc: '출시, 와디즈, 체험단 등 모든 소식은 인스타그램에서 확인하세요.',
       igPosts: [
-        'https://www.instagram.com/p/AAAAAAA/',
+        'https://www.instagram.com/p/DO8ZQPPkoUy/',
         'https://www.instagram.com/p/BBBBBBB/',
         'https://www.instagram.com/p/CCCCCCC/',
         'https://www.instagram.com/p/DDDDDDD/',
@@ -69,7 +69,7 @@ export default function AraveLanding() {
       news: 'ARAVE News & Mentions',
       newsDesc: 'Check out all updates on Instagram: launch, Wadiz, and testers.',
       igPosts: [
-        'https://www.instagram.com/p/KKKKKKK/',
+        'https://www.instagram.com/p/DO8ZQPPkoUy/',
         'https://www.instagram.com/p/LLLLLLL/',
         'https://www.instagram.com/p/MMMMMMM/',
         'https://www.instagram.com/p/NNNNNNN/',
