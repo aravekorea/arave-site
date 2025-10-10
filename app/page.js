@@ -31,7 +31,7 @@ export default function AraveLanding() {
         '잠들기 전, 하루의 속도를 낮추는 간결한 나이트 리추얼. 아라베는 미니멀한 성분과 차분한 향으로, 피부와 마음에 고요를 남깁니다.',
       cta1: '와디즈 알림 신청',
       cta2: '제품 보러가기',
-      release: '출시 예정: 2025년 11월',
+      release: '출시 예정: 2025년 12월',
       news: '아라베 소식 & 언급',
       newsDesc: '출시, 와디즈, 체험단 등 모든 소식은 인스타그램에서 확인하세요.',
       igPosts: [
@@ -65,7 +65,7 @@ export default function AraveLanding() {
         'A simple night ritual to slow down the pace before sleep. ARAVE leaves calmness on your skin and mind with minimal ingredients and soothing scents.',
       cta1: 'Wadiz Notify Me',
       cta2: 'See Product',
-      release: 'Planned Launch: Nov 2025',
+      release: 'Planned Launch: Dec 2025',
       news: 'ARAVE News & Mentions',
       newsDesc: 'Check out all updates on Instagram: launch, Wadiz, and testers.',
       igPosts: [
