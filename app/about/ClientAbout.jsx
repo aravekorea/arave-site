@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import { Component } from "react";
 
-// (선택) 런타임 오류를 화면에 보여주는 에러 바운더리
+// ----- 에러 바운더리 (런타임 오류를 화면에 표시) -----
 class ErrorBoundary extends Component {
-  constructor(props){ super(props); this.state={hasError:false,message:""}; }
-  static getDerivedStateFromError(err){ return {hasError:true, message: err?.message || "Render error"}; }
+  constructor(props){ super(props); this.state={ hasError:false, message:"" }; }
+  static getDerivedStateFromError(err){ return { hasError:true, message: err?.message || "Render error" }; }
   componentDidCatch(err, info){ if (typeof window !== "undefined") console.error("[About ErrorBoundary]", err, info); }
   render(){
     if (this.state.hasError){
@@ -21,7 +21,7 @@ class ErrorBoundary extends Component {
   }
 }
 
-// ====== 여기부터 About 본문 전체 (임포트 없이 내장) ======
+// ----- 콘텐츠 데이터 -----
 const sections = [
   {
     id: "intro",
@@ -101,22 +101,36 @@ const sections = [
   },
 ];
 
+// ----- 애니메이션 설정 -----
 const fade = {
   hidden: { opacity: 0, y: 8 },
   show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
 };
 
+// 시스템 '움직임 감소' 설정 감지 (모바일 접근성 고려)
+const prefersReduced =
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 function Section({ item, index }) {
   return (
-    <section id={item.id} className="relative min-h-screen w-full grid place-items-center px-6 py-24">
+    <section
+      id={item.id}
+      className="relative min-h-[100svh] md:min-h-screen w-full grid place-items-center px-6 py-24 bg-[#FAF9F6]"
+    >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.06),transparent_60%)]" />
+
       <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.5 }}
+        // 모바일 첫 화면: 바로 보이도록
+        initial={prefersReduced || index === 0 ? "show" : "hidden"}
+        animate={prefersReduced ? "show" : undefined}
+        whileInView={prefersReduced ? undefined : "show"}
+        viewport={prefersReduced ? undefined : { once: true, amount: 0.2 }} // 0.5 → 0.2 로 완화
         variants={fade}
         className="relative mx-auto max-w-4xl text-center"
       >
+        {/* Korean */}
         <div className="space-y-3 md:space-y-4">
           {item.ko.map((line, i) => (
             <motion.p
@@ -128,9 +142,13 @@ function Section({ item, index }) {
             </motion.p>
           ))}
         </div>
+
+        {/* Divider */}
         <div className="my-6 md:my-8 opacity-25">
           <div className="mx-auto h-px w-24 bg-neutral-400" />
         </div>
+
+        {/* English */}
         <div className="space-y-2">
           {item.en.map((line, i) => (
             <motion.p
