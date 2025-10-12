@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link'; // ✅ 추가: 라우팅용 Link
 import InstagramSwiper from '../components/InstagramSwiper';
 
 function SafeImg({ src, alt, className, fallback }) {
@@ -94,24 +95,36 @@ export default function AraveLanding() {
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-neutral-900">
-      {/* Header */}
+      {/* Header (About 링크 포함) */}
       <header className="sticky top-0 z-20 backdrop-blur bg-white/80 border-b border-neutral-200">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="font-semibold tracking-[0.2em] text-xl">ARAVE</div>
-          <div className="flex items-center gap-2 text-sm">
-            <button
-              onClick={() => setLang('KR')}
-              className={`px-3 py-1.5 rounded-xl hover:bg-black/5 ${lang === 'KR' ? 'font-bold' : ''}`}
-            >
-              KR
-            </button>
-            <span className="opacity-40">/</span>
-            <button
-              onClick={() => setLang('EN')}
-              className={`px-3 py-1.5 rounded-xl hover:bg-black/5 ${lang === 'EN' ? 'font-bold' : ''}`}
-            >
-              EN
-            </button>
+          <div className="font-semibold tracking-[0.2em] text-xl">
+            <Link href="/">ARAVE</Link>
+          </div>
+
+          <div className="flex items-center gap-6">
+            {/* Nav */}
+            <nav className="hidden md:flex items-center gap-5 text-sm text-neutral-700">
+              <Link className="hover:opacity-70" href="/">Home</Link>
+              <Link className="hover:opacity-70" href="/about">About</Link>
+            </nav>
+
+            {/* Lang Toggle */}
+            <div className="flex items-center gap-2 text-sm">
+              <button
+                onClick={() => setLang('KR')}
+                className={`px-3 py-1.5 rounded-xl hover:bg-black/5 ${lang === 'KR' ? 'font-bold' : ''}`}
+              >
+                KR
+              </button>
+              <span className="opacity-40">/</span>
+              <button
+                onClick={() => setLang('EN')}
+                className={`px-3 py-1.5 rounded-xl hover:bg-black/5 ${lang === 'EN' ? 'font-bold' : ''}`}
+              >
+                EN
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -171,7 +184,7 @@ export default function AraveLanding() {
         </div>
       </section>
 
-      {/* Instagram Section (마우스 위치 따라 방향 자동 슬라이드) */}
+      {/* Instagram Section */}
       <section className="max-w-6xl mx-auto px-4 pb-14">
         <div className="mb-4 text-xs uppercase tracking-wide text-neutral-500">
           {t.news}
@@ -236,4 +249,3 @@ export default function AraveLanding() {
     </div>
   );
 }
-
