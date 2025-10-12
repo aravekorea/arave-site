@@ -1,21 +1,33 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link'; // ✅ 추가: 라우팅용 Link
-import InstagramSwiper from '../components/InstagramSwiper';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
+// ✅ 브라우저 전용 컴포넌트는 SSR 비활성화(클라이언트에서만 렌더)
+const InstagramSwiper = dynamic(
+  () => import('./components/InstagramSwiper'), // 경로 주의: app/page.js 기준
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[480px] rounded-2xl bg-neutral-100 border border-neutral-200 grid place-items-center text-neutral-500">
+        Loading…
+      </div>
+    ),
+  }
+);
+
+// 이미지 안전 로더
 function SafeImg({ src, alt, className, fallback }) {
   const [fail, setFail] = useState(false);
   if (fail) {
     return (
-      <div className={`grid place-items-center bg-neutral-100 ${fallback}`}>
+      <div className={`grid place-items-center bg-neutral-100 ${fallback || ''}`}>
         <div className="text-neutral-400 text-sm">{src} 를 /public 에 추가하세요</div>
       </div>
     );
   }
-  return (
-    <img src={src} alt={alt} className={className} onError={() => setFail(true)} />
-  );
+  return <img src={src} alt={alt} className={className} onError={() => setFail(true)} />;
 }
 
 export default function AraveLanding() {
@@ -172,7 +184,7 @@ export default function AraveLanding() {
               <SafeImg
                 src="/pd.png"
                 alt="ARAVE Sleeping Mist mockup"
-                className="object-contain w-full h-full p-25"
+                className="object-contain w-full h-full p-24" // p-25 → p-24 로 수정
                 fallback="w-full h-full"
               />
             </div>
@@ -234,10 +246,7 @@ export default function AraveLanding() {
             >
               Wadiz
             </a>
-            <a
-              className="hover:text-neutral-900"
-              href="mailto:aravekorea@gmail.com"
-            >
+            <a className="hover:text-neutral-900" href="mailto:aravekorea@gmail.com">
               Contact
             </a>
           </div>
