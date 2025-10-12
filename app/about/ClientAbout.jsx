@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Component } from "react";
 
-// ----- 에러 바운더리 (런타임 오류를 화면에 표시) -----
+// ----- 에러 바운더리 -----
 class ErrorBoundary extends Component {
   constructor(props){ super(props); this.state={ hasError:false, message:"" }; }
   static getDerivedStateFromError(err){ return { hasError:true, message: err?.message || "Render error" }; }
@@ -107,7 +107,7 @@ const fade = {
   show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
 };
 
-// 시스템 '움직임 감소' 설정 감지 (모바일 접근성 고려)
+// 시스템 '움직임 감소' 설정 감지
 const prefersReduced =
   typeof window !== "undefined" &&
   typeof window.matchMedia === "function" &&
@@ -122,11 +122,10 @@ function Section({ item, index }) {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.06),transparent_60%)]" />
 
       <motion.div
-        // 모바일 첫 화면: 바로 보이도록
         initial={prefersReduced || index === 0 ? "show" : "hidden"}
         animate={prefersReduced ? "show" : undefined}
         whileInView={prefersReduced ? undefined : "show"}
-        viewport={prefersReduced ? undefined : { once: true, amount: 0.2 }} // 0.5 → 0.2 로 완화
+        viewport={prefersReduced ? undefined : { once: true, amount: 0.2 }}
         variants={fade}
         className="relative mx-auto max-w-4xl text-center"
       >
@@ -170,17 +169,17 @@ export default function ClientAbout() {
     <ErrorBoundary>
       <main className="bg-[#FAF9F6] text-neutral-900">
         <div className="pt-4 md:pt-8" />
+        {/* ✅ 모바일에서도 항상 보이는 네비게이션 (hidden 제거) */}
         <header className="sticky top-0 z-10 backdrop-blur bg-[#FAF9F6]/70 border-b border-neutral-200/50">
           <div className="mx-auto max-w-5xl px-6 py-3 flex items-center justify-between">
-            <span className="font-medium tracking-[0.18em] text-sm md:text-base">ARAVE</span>
-            <nav className="hidden md:flex items-center gap-6 text-xs text-neutral-600">
-              <a href="#intro" className="hover:opacity-70">About</a>
+            <a href="/" className="font-medium tracking-[0.18em] text-sm md:text-base">ARAVE</a>
+            <nav className="flex items-center gap-4 text-xs text-neutral-700">
+              <a href="/" className="hover:opacity-70">Home</a>
+              <a href="/about" className="hover:opacity-70">About</a>
+              <span className="hidden sm:inline opacity-40">|</span>
+              <a href="#intro" className="hover:opacity-70">Intro</a>
               <a href="#why-night" className="hover:opacity-70">Night</a>
               <a href="#ritual" className="hover:opacity-70">Ritual</a>
-              <a href="#scent" className="hover:opacity-70">Scent</a>
-              <a href="#minimal" className="hover:opacity-70">Design</a>
-              <a href="#founder" className="hover:opacity-70">Founder</a>
-              <a href="#future" className="hover:opacity-70">Future</a>
             </nav>
           </div>
         </header>
