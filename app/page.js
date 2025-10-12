@@ -64,34 +64,36 @@ export default function AraveLanding() {
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-neutral-900">
-      {/* Header */}
-      <header className="sticky top-0 z-20 backdrop-blur bg-white/80 border-b border-neutral-200">
+      {/* Header — 모바일에서도 항상 보이도록 수정 */}
+      <header className="sticky top-0 z-30 backdrop-blur bg-white/85 border-b border-neutral-200">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="font-semibold tracking-[0.2em] text-xl">
+          <div className="font-semibold tracking-[0.2em] text-base sm:text-xl">
             <Link href="/">ARAVE</Link>
           </div>
 
-          <div className="flex items-center gap-6">
-            <nav className="hidden md:flex items-center gap-5 text-sm text-neutral-700">
-              <Link className="hover:opacity-70" href="/">Home</Link>
-              <Link className="hover:opacity-70" href="/about">About</Link>
-            </nav>
+          {/* ✅ 네비: hidden 제거 → 모바일에서도 표시 */}
+          <nav className="flex items-center gap-4 text-sm text-neutral-700">
+            <Link className="hover:opacity-70" href="/">Home</Link>
+            <Link className="hover:opacity-70" href="/about">About</Link>
+          </nav>
 
-            <div className="flex items-center gap-2 text-sm">
-              <button
-                onClick={() => setLang('KR')}
-                className={`px-3 py-1.5 rounded-xl hover:bg-black/5 ${lang === 'KR' ? 'font-bold' : ''}`}
-              >
-                KR
-              </button>
-              <span className="opacity-40">/</span>
-              <button
-                onClick={() => setLang('EN')}
-                className={`px-3 py-1.5 rounded-xl hover:bg-black/5 ${lang === 'EN' ? 'font-bold' : ''}`}
-              >
-                EN
-              </button>
-            </div>
+          {/* 언어 토글 */}
+          <div className="flex items-center gap-2 text-sm">
+            <button
+              onClick={() => setLang('KR')}
+              className={`px-3 py-1.5 rounded-xl hover:bg-black/5 ${lang === 'KR' ? 'font-bold' : ''}`}
+              aria-label="한국어 보기"
+            >
+              KR
+            </button>
+            <span className="opacity-40">/</span>
+            <button
+              onClick={() => setLang('EN')}
+              className={`px-3 py-1.5 rounded-xl hover:bg-black/5 ${lang === 'EN' ? 'font-bold' : ''}`}
+              aria-label="English"
+            >
+              EN
+            </button>
           </div>
         </div>
       </header>
@@ -110,7 +112,7 @@ export default function AraveLanding() {
       <section className="max-w-6xl mx-auto px-4 pt-10 pb-8">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h1 className="text-4xl md:text-5xl font-semibold leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight">
               {t.heroTitle}
             </h1>
             <p className="mt-4 text-neutral-600 max-w-prose">{t.heroDesc}</p>
@@ -151,8 +153,6 @@ export default function AraveLanding() {
         </div>
       </section>
 
-      {/* ✅ Instagram 섹션 완전히 제거됨 */}
-
       {/* Review */}
       <section className="max-w-6xl mx-auto px-4 pb-14">
         <h3 className="text-base font-semibold mb-4">{t.reviewTitle}</h3>
@@ -170,7 +170,7 @@ export default function AraveLanding() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-200 bg-white/80">
+      <footer className="border-t border-neutral-200 bg-white/85">
         <div className="max-w-6xl mx-auto px-4 py-8 text-sm text-neutral-600 grid md:grid-cols-2 gap-4">
           <div>
             <div className="font-semibold tracking-[0.2em] text-neutral-900">ARAVE</div>
