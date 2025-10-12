@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { Component } from "react";
-const AraveAboutFade = dynamic(() => import("../components/AraveAboutFade"), {
+const AraveAboutFade = dynamic(() => import("../components/AraveAboutFade.jsx"), {
   ssr:false,
   loading: () => (
     <main className="min-h-[60vh] grid place-items-center text-neutral-500">
