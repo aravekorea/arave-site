@@ -2,20 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-// ✅ 브라우저 전용 컴포넌트는 SSR 비활성화(클라이언트에서만 렌더)
-const InstagramSwiper = dynamic(
-  () => import('./components/InstagramSwiper'), // 경로 주의: app/page.js 기준
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-[480px] rounded-2xl bg-neutral-100 border border-neutral-200 grid place-items-center text-neutral-500">
-        Loading…
-      </div>
-    ),
-  }
-);
 
 // 이미지 안전 로더
 function SafeImg({ src, alt, className, fallback }) {
@@ -47,18 +33,6 @@ export default function AraveLanding() {
       release: '출시 예정: 2025년 12월',
       news: '아라베 소식 & 언급',
       newsDesc: '출시, 와디즈, 체험단 등 모든 소식은 인스타그램에서 확인하세요.',
-      igPosts: [
-        'https://www.instagram.com/p/DO8ZQPPkoUy/',
-        'https://www.instagram.com/p/BBBBBBB/',
-        'https://www.instagram.com/p/CCCCCCC/',
-        'https://www.instagram.com/p/DDDDDDD/',
-        'https://www.instagram.com/p/EEEEEEE/',
-        'https://www.instagram.com/p/FFFFFFF/',
-        'https://www.instagram.com/p/GGGGGGG/',
-        'https://www.instagram.com/p/HHHHHHH/',
-        'https://www.instagram.com/p/IIIIIII/',
-        'https://www.instagram.com/p/JJJJJJJ/',
-      ],
       reviewTitle: '첫 반응',
       reviews: [
         { quote: '향이 진득하게 남지 않아 좋았어요. 밤 루틴에 부담이 없어요.', author: '서*현' },
@@ -81,18 +55,6 @@ export default function AraveLanding() {
       release: 'Planned Launch: Dec 2025',
       news: 'ARAVE News & Mentions',
       newsDesc: 'Check out all updates on Instagram: launch, Wadiz, and testers.',
-      igPosts: [
-        'https://www.instagram.com/p/DO8ZQPPkoUy/',
-        'https://www.instagram.com/p/LLLLLLL/',
-        'https://www.instagram.com/p/MMMMMMM/',
-        'https://www.instagram.com/p/NNNNNNN/',
-        'https://www.instagram.com/p/OOOOOOO/',
-        'https://www.instagram.com/p/PPPPPPP/',
-        'https://www.instagram.com/p/QQQQQQQ/',
-        'https://www.instagram.com/p/RRRRRRR/',
-        'https://www.instagram.com/p/SSSSSSS/',
-        'https://www.instagram.com/p/TTTTTTT/',
-      ],
       reviewTitle: 'Early Reactions',
       reviews: [
         { quote: 'Subtle scent that doesn’t linger—perfect for nights.', author: 'S. Seo' },
@@ -166,16 +128,18 @@ export default function AraveLanding() {
                 target="_blank"
                 rel="noreferrer"
               >
-                {t.cta1}
+                {lang === 'KR' ? '와디즈 알림 신청' : 'Wadiz Notify Me'}
               </a>
               <a
                 className="inline-flex items-center justify-center font-medium transition-all rounded-2xl px-5 py-2.5 text-sm border border-neutral-300 bg-white text-[#5A4633] hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-[#5A4633]/20"
                 href="#product"
               >
-                {t.cta2}
+                {lang === 'KR' ? '제품 보러가기' : 'See Product'}
               </a>
             </div>
-            <p className="mt-3 text-xs text-neutral-500">{t.release}</p>
+            <p className="mt-3 text-xs text-neutral-500">
+              {lang === 'KR' ? '출시 예정: 2025년 12월' : 'Planned Launch: Dec 2025'}
+            </p>
           </div>
 
           {/* Product Mock */}
@@ -184,7 +148,7 @@ export default function AraveLanding() {
               <SafeImg
                 src="/pd.png"
                 alt="ARAVE Sleeping Mist mockup"
-                className="object-contain w-full h-full p-24" // p-25 → p-24 로 수정
+                className="object-contain w-full h-full p-24"
                 fallback="w-full h-full"
               />
             </div>
@@ -196,20 +160,38 @@ export default function AraveLanding() {
         </div>
       </section>
 
-      {/* Instagram Section */}
+      {/* Instagram Section — 임시 비활성화
       <section className="max-w-6xl mx-auto px-4 pb-14">
         <div className="mb-4 text-xs uppercase tracking-wide text-neutral-500">
-          {t.news}
+          {lang === 'KR' ? '아라베 소식 & 언급' : 'ARAVE News & Mentions'}
         </div>
-        <p className="mb-6 text-sm text-neutral-600">{t.newsDesc}</p>
-        <InstagramSwiper urls={t.igPosts} height={480} />
+        <p className="mb-6 text-sm text-neutral-600">
+          {lang === 'KR'
+            ? '출시, 와디즈, 체험단 등 모든 소식은 인스타그램에서 확인하세요.'
+            : 'Check out all updates on Instagram: launch, Wadiz, and testers.'}
+        </p>
+        <InstagramSwiper urls={...} height={480} />
       </section>
+      */}
 
       {/* Review Teasers */}
       <section className="max-w-6xl mx-auto px-4 pb-14">
-        <h3 className="text-base font-semibold mb-4">{t.reviewTitle}</h3>
+        <h3 className="text-base font-semibold mb-4">
+          {lang === 'KR' ? '첫 반응' : 'Early Reactions'}
+        </h3>
         <div className="grid md:grid-cols-2 gap-4">
-          {t.reviews.map((r, i) => (
+          {(lang === 'KR'
+            ? [
+                { quote: '향이 진득하게 남지 않아 좋았어요. 밤 루틴에 부담이 없어요.', author: '서*현' },
+                { quote: '분사감이 섬세해서 스킨케어 사이에 쓰기 좋네요.', author: '김*윤' },
+                { quote: '침구 향이 아니라 피부에 얹히는 느낌이라 더 편안했어요.', author: '이*민' },
+              ]
+            : [
+                { quote: 'Subtle scent that doesn’t linger—perfect for nights.', author: 'S. Seo' },
+                { quote: 'Fine mist works nicely between skincare steps.', author: 'Y. Kim' },
+                { quote: 'Calm on skin; it feels like part of my ritual.', author: 'M. Lee' },
+              ]
+          ).map((r, i) => (
             <div
               key={i}
               className="rounded-2xl border border-neutral-200 bg-white p-5 text-sm text-neutral-700"
